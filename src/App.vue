@@ -127,6 +127,12 @@
 
   <!-- types pada props component -->
   <types-component :keterangan="'hello'" :angka="2" />
+  <br><br><br>
+
+  <!-- provide & inject -->
+  <satu />
+
+
 </template>
 
 <script>
@@ -136,6 +142,7 @@ import SlotComponent from "./components/SlotComponent.vue";
 import NslotComponent from "./components/NslotComponent.vue";
 import PslotComponent from './components/PslotComponent.vue';
 import TypesComponent from './components/TypesComponent.vue';
+import Satu from './components/ComponentProvide/ComponentSatu.vue';
 
 export default {
   components: {
@@ -144,7 +151,8 @@ export default {
     SlotComponent,
     NslotComponent,
     PslotComponent,
-    TypesComponent
+    TypesComponent,
+    Satu
   },
   beforeCreate() {
     console.log("before create");
@@ -212,7 +220,13 @@ export default {
       greenClass: "success",
       boldClass: "bold",
       info: "",
+      author: 'Fachru'
     };
+  },
+  provide() {
+    return {
+      provideAuthor: this.author
+    }
   },
   watch: {
     mengamati(value) {
