@@ -109,7 +109,7 @@
       <span>footer created by fachru</span>
     </template>
   </nslot-component>
-  <br><br><br>
+  <br /><br /><br />
 
   <!-- props for slot -->
   <pslot-component>
@@ -123,16 +123,26 @@
       <span>footer : {{ data }}</span>
     </template>
   </pslot-component>
-  <br><br><br>
+  <br /><br /><br />
 
   <!-- types pada props component -->
   <types-component :keterangan="'hello'" :angka="2" />
-  <br><br><br>
+  <br /><br /><br />
 
   <!-- provide & inject -->
   <satu />
+  <br /><br /><br />
 
+  <!-- keep-alive -->
+  <div class="tab">
+    <button v-for="tab in tabs" :key="tab" :class="['tab-button', {active: currentTab === tab}]" @click="currentTab = tab">
+      {{ tab }}
+    </button>
+  </div>
 
+  <keep-alive>
+    <component :is="currentTabComponent" />
+  </keep-alive>
 </template>
 
 <script>
@@ -140,9 +150,12 @@ import RefsComponent from "./components/RefsComponent.vue";
 import UpdateComponent from "./components/UpdateComponent.vue";
 import SlotComponent from "./components/SlotComponent.vue";
 import NslotComponent from "./components/NslotComponent.vue";
-import PslotComponent from './components/PslotComponent.vue';
-import TypesComponent from './components/TypesComponent.vue';
-import Satu from './components/ComponentProvide/ComponentSatu.vue';
+import PslotComponent from "./components/PslotComponent.vue";
+import TypesComponent from "./components/TypesComponent.vue";
+import Satu from "./components/ComponentProvide/ComponentSatu.vue";
+import Home from './components/tabs/Home.vue';
+import About from './components/tabs/About.vue';
+import Posts from './components/tabs/Posts.vue';
 
 export default {
   components: {
@@ -152,7 +165,10 @@ export default {
     NslotComponent,
     PslotComponent,
     TypesComponent,
-    Satu
+    Satu,
+    Home,
+    About,
+    Posts
   },
   beforeCreate() {
     console.log("before create");
@@ -220,13 +236,15 @@ export default {
       greenClass: "success",
       boldClass: "bold",
       info: "",
-      author: 'Fachru'
+      author: "Fachru",
+      currentTab: "Home",
+      tabs: ["Home", "Posts", "About"],
     };
   },
   provide() {
     return {
-      provideAuthor: this.author
-    }
+      provideAuthor: this.author,
+    };
   },
   watch: {
     mengamati(value) {
@@ -263,11 +281,14 @@ export default {
         this.num2 -= value;
       },
     },
+    currentTabComponent() {
+      return this.currentTab.toLowerCase()
+    }
   },
 };
 </script>
 
-<style scoped>
+<style>
 .success {
   color: green;
 }
@@ -276,5 +297,24 @@ export default {
 }
 .bold {
   font-weight: 700;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid rgb(207, 207, 207);
+}
+
+.tab-button:hover {
+  background-color: bisque;
+}
+
+.tab-button.active {
+  background-color: bisque;
+}
+
+.demo-tab {
+  border: 1px solid rebeccapurple;
+  padding: 10px;
 }
 </style>
