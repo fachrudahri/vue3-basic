@@ -148,6 +148,13 @@
   <!-- mixins -->
   <pre>{{ $data }}</pre>
   <button @click="onClick">click disini</button>
+  <br><br><br>
+
+  <!-- teleport vue -->
+  <teleport to='#target-teleport'>
+  <teleport-component />
+  </teleport>
+
 </template>
 
 <script>
@@ -162,6 +169,7 @@ import Home from './components/tabs/Home.vue';
 import About from './components/tabs/About.vue';
 import Posts from './components/tabs/Posts.vue';
 import mergeMixins from './mixins/merge';
+import TeleportComponent from './components/TeleportComponent.vue';
 
 export default {
   mixins: [ mergeMixins ],
@@ -175,7 +183,8 @@ export default {
     Satu,
     Home,
     About,
-    Posts
+    Posts,
+    TeleportComponent
   },
   beforeCreate() {
     console.log("before create");
