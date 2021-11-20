@@ -143,6 +143,11 @@
   <keep-alive>
     <component :is="currentTabComponent" />
   </keep-alive>
+  <br><br><br>
+
+  <!-- mixins -->
+  <pre>{{ $data }}</pre>
+  <button @click="onClick">click disini</button>
 </template>
 
 <script>
@@ -156,8 +161,10 @@ import Satu from "./components/ComponentProvide/ComponentSatu.vue";
 import Home from './components/tabs/Home.vue';
 import About from './components/tabs/About.vue';
 import Posts from './components/tabs/Posts.vue';
+import mergeMixins from './mixins/merge';
 
 export default {
+  mixins: [ mergeMixins ],
   components: {
     RefsComponent,
     UpdateComponent,
